@@ -5,26 +5,11 @@ import { TodoCounter } from "../TodoCounter/TodoCounter";
 import { ShowTodos } from "../ShowTodos/ShowTodos";
 
 const todosInfo = [
-  {
-    text: "Work 1",
-    completed: true,
-  },
-  {
-    text: "Work 2",
-    completed: false,
-  },
-  {
-    text: "Work 3",
-    completed: true,
-  },
-  {
-    text: "Work 4",
-    completed: false,
-  },
-  {
-    text: "Work 5",
-    completed: true,
-  },
+  { text: "Work 1", completed: true, },
+  { text: "Work 2", completed: false, },
+  { text: "Work 3", completed: true, },
+  { text: "Work 4", completed: false, },
+  { text: "Work 5", completed: true, },
 ]
 
 function Form() {
@@ -44,14 +29,14 @@ function Form() {
     setTodoInput('')
   }
   const incompleteTodos = todos.filter(todo => !todo.completed).length;
-  
+
   const allTodos = () => {
     setFilterTodos(todos)
     setActiveButtons("all");
-    
+
   }
   const activeTodos = () => {
-  const activeTodos =  todos.filter( todo => !todo.completed)
+    const activeTodos = todos.filter(todo => !todo.completed)
     setFilterTodos(activeTodos)
     setActiveButtons("active")
   }
@@ -59,6 +44,38 @@ function Form() {
     setFilterTodos(todos.filter(todo => todo.completed))
     setActiveButtons("completed")
   };
+
+  const completeTodos = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      todo => todo.text == text
+    );
+
+    if (newTodos[todoIndex].completed == false) {
+      newTodos[todoIndex].completed = true;
+    } else {
+      newTodos[todoIndex].completed = false;
+    }
+    setTodos(newTodos);
+    setFilterTodos(newTodos)
+  };
+
+  const deleteTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      todo => todo.text == text
+    );
+    newTodos.splice(todoIndex, 1)
+    setTodos(newTodos);
+    setFilterTodos(newTodos)
+  };
+
+  const onClearComplete = () => {
+    const newTodos = todos.filter(todo => !todo.completed);
+    setTodos(newTodos);
+    setFilterTodos(newTodos)
+  };
+
 
   return (
     <section className="mt-8">
@@ -83,16 +100,17 @@ function Form() {
 
         {
           filterTodos.map((todo, i) => (
-            <Todos key={i} todoText={todo.text} completed={todo.completed} />
+            <Todos key={i} todoText={todo.text} completed={todo.completed} onComplete={() => completeTodos(todo.text)}
+              onDelete={() => deleteTodo(todo.text)} />
 
           ))
         }
 
-        <TodoCounter  incompleteTodos={incompleteTodos}/>
+        <TodoCounter incompleteTodos={incompleteTodos} onClear={onClearComplete} />
 
       </div>
 
-      <ShowTodos allTodos={allTodos} active={activeTodos} completed={completedTodo} activeButton={activeButtons}/>
+      <ShowTodos allTodos={allTodos} active={activeTodos} completed={completedTodo} activeButton={activeButtons} />
 
     </section >
   );
