@@ -3,30 +3,40 @@ import { useState } from "react";
 import { Todos } from "../Todos/Todos";
 import { TodoCounter } from "../TodoCounter/TodoCounter";
 import { ShowTodos } from "../ShowTodos/ShowTodos";
+import { Input } from "./Input";
 
 const todosInfo = [
-  { text: "Work 1", completed: true, },
-  { text: "Work 2", completed: false, },
-  { text: "Work 3", completed: true, },
-  { text: "Work 4", completed: false, },
-  { text: "Work 5", completed: true, },
+  // { text: "Work 1", completed: true, },
+  // { text: "Work 2", completed: false, },
+  // { text: "Work 3", completed: true, },
+  // { text: "Work 4", completed: false, },
+  // { text: "Work 5", completed: true, },
+  // { text: "Aprender Testing en Web.dev", completed: false, },
 ]
 
 function Form() {
 
   const [todoInput, setTodoInput] = useState('');
-  const [submittedText, setSubmittedText] = useState('');
   const [todos, setTodos] = useState(todosInfo);
   const [filterTodos, setFilterTodos] = useState(todosInfo)
   const [activeButtons, setActiveButtons] = useState("all")
 
+  const addTodo = (text) => {
+    const newTodos = [...todos];
+    newTodos.push({
+      text,
+      completed: false,
+    });
+    setTodos(newTodos)
+    setFilterTodos(newTodos)
+  }
   const handleChange = (e) => {
     setTodoInput(e.target.value)
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    setSubmittedText(todoInput)
     setTodoInput('')
+    addTodo(todoInput);
   }
   const incompleteTodos = todos.filter(todo => !todo.completed).length;
 
@@ -76,27 +86,17 @@ function Form() {
     setFilterTodos(newTodos)
   };
 
-
   return (
     <section className="mt-8">
       <form onSubmit={handleSubmit} className="mb-7">
-        <label id="add" className="flex gap-2 items-center py-2 px-5  rounded-md bg-Very-Dark-Desaturated-Blue shadow-sm shadow-white">
-
-          <div className="w-6 h-6 border-2 border-Very-Dark-Grayish-Blue2 rounded-full"></div>
-
-          <input
-            onChange={handleChange}
-            type="text"
-            name="add"
-            value={todoInput}
-            placeholder="Create a new todo..."
-            className="p-1 w-full bg-transparent placeholder:text-Dark-Grayish-Blue placeholder:text-sm outline-none text-Light-Grayish-Blue font-josefin font-medium" />
-        </label>
+        <Input handleChange={handleChange} todoInput={todoInput} />
       </form>
 
-      <p>{submittedText}</p>
-
       <div className="bg-Very-Dark-Desaturated-Blue rounded-md">
+
+        {
+          filterTodos.length == 0 && <p className="text-white text-center p-2 uppercase italic pt-8 text-xl">Empty Todos</p>
+        }
 
         {
           filterTodos.map((todo, i) => (
