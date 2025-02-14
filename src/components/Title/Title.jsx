@@ -8,9 +8,9 @@ function Title({ changeTheme, handleChange }) {
       <button onClick={handleChange}
       >
         {
-          changeTheme ?
-            <img src={iconSun} alt="icon-sun" /> :
-            <img src={iconMoon} alt="icon-moon" />
+          changeTheme == "light" ?
+            <img src={iconMoon} alt="icon-moon" /> :
+            <img src={iconSun} alt="icon-sun" />
         }
       </button>
     </div>

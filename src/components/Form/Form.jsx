@@ -92,10 +92,10 @@ function Form() {
         <Input handleChange={handleChange} todoInput={todoInput} />
       </form>
 
-      <div className="bg-Very-Dark-Desaturated-Blue rounded-md">
+      <div className="rounded-md bg-Very-Light-Gray dark:bg-Very-Dark-Desaturated-Blue">
 
         {
-          filterTodos.length == 0 && <p className="text-white text-center p-2 uppercase italic pt-8 text-xl">Empty Todos</p>
+          filterTodos.length == 0 && <p className="text-Very-Dark-Grayish-Blue1 dark:text-white text-center p-2 uppercase italic pt-8 text-xl">Empty Todos</p>
         }
 
         {
