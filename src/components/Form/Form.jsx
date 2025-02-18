@@ -86,32 +86,53 @@ function Form() {
     setFilterTodos(newTodos)
   };
 
+  const classMobile = "bg-Very-Light-Gray text-Dark-Grayish-Blue-light mt-10 rounded-md flex justify-center gap-10 p-2 dark:bg-Very-Dark-Desaturated-Blue dark:text-Very-Dark-Grayish-Blue2 font-bold md:hidden"
+
   return (
     <section className="mt-8">
       <form onSubmit={handleSubmit} className="mb-7">
-        <Input handleChange={handleChange} todoInput={todoInput} />
+        <Input
+          handleChange={handleChange}
+          todoInput={todoInput}
+        />
       </form>
 
       <div className="rounded-md bg-Very-Light-Gray dark:bg-Very-Dark-Desaturated-Blue">
 
         {
-          filterTodos.length == 0 && <p className="text-Very-Dark-Grayish-Blue1 dark:text-white text-center p-2 uppercase italic pt-8 text-xl">Empty Todos</p>
+          filterTodos.length == 0 &&
+          <p className="text-Very-Dark-Grayish-Blue1 dark:text-white text-center p-2 uppercase italic pt-8 text-xl">
+            Empty Todos
+          </p>
         }
 
         {
           filterTodos.map((todo, i) => (
-            <Todos key={i} todoText={todo.text} completed={todo.completed} onComplete={() => completeTodos(todo.text)}
+            <Todos key={i}
+              todoText={todo.text}
+              completed={todo.completed}
+              onComplete={() => completeTodos(todo.text)}
               onDelete={() => deleteTodo(todo.text)} />
 
           ))
         }
 
-        <TodoCounter incompleteTodos={incompleteTodos} onClear={onClearComplete} />
+        <TodoCounter
+          incompleteTodos={incompleteTodos}
+          onClear={onClearComplete}
+          allTodos={allTodos}
+          active={activeTodos}
+          completed={completedTodo}
+          activeButton={activeButtons} />
 
       </div>
 
-      <ShowTodos allTodos={allTodos} active={activeTodos} completed={completedTodo} activeButton={activeButtons} />
-
+      <ShowTodos
+        allTodos={allTodos}
+        active={activeTodos}
+        completed={completedTodo}
+        activeButton={activeButtons}
+        className={classMobile} />
     </section >
   );
 };

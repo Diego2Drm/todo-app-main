@@ -23,9 +23,9 @@ function App() {
   }
 
   return (
-    <main className="w-full h-full font-josefin ">
+    <main className="w-full h-full font-josefin flex justify-center">
       <Background changeTheme={theme} >
-        <section className="absolute w-full top-0 pb-16">
+        <section className="absolute w-full top-0 pb-16 md:w-3/4 lg:w-1/2">
           <div className="w-full pt-10 px-5 ">
             <Title changeTheme={theme} handleChange={handleChamgeTheme} />
             <Form />
