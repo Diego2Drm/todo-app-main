@@ -16,9 +16,20 @@ const todosInfo = [
 
 function Form() {
 
+  const localStorageTodos = localStorage.getItem('TODOS');
+
+  let parsedTodos;
+
+  if(!localStorageTodos){
+    localStorage.setItem('TODOS', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos)
+  }
+
   const [todoInput, setTodoInput] = useState('');
-  const [todos, setTodos] = useState(todosInfo);
-  const [filterTodos, setFilterTodos] = useState(todosInfo)
+  const [todos, setTodos] = useState(parsedTodos);
+  const [filterTodos, setFilterTodos] = useState(parsedTodos)
   const [activeButtons, setActiveButtons] = useState("all")
 
   const addTodo = (text) => {
@@ -27,7 +38,7 @@ function Form() {
       text,
       completed: false,
     });
-    setTodos(newTodos)
+    saveTodos(newTodos)
     setFilterTodos(newTodos)
   }
   const handleChange = (e) => {
@@ -55,6 +66,12 @@ function Form() {
     setActiveButtons("completed")
   };
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS', JSON.stringify(newTodos));
+    setTodos(newTodos);
+    setFilterTodos(newTodos)
+  }
+
   const completeTodos = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex(
@@ -66,7 +83,7 @@ function Form() {
     } else {
       newTodos[todoIndex].completed = false;
     }
-    setTodos(newTodos);
+    saveTodos(newTodos);
     setFilterTodos(newTodos)
   };
 
@@ -76,13 +93,13 @@ function Form() {
       todo => todo.text == text
     );
     newTodos.splice(todoIndex, 1)
-    setTodos(newTodos);
+    saveTodos(newTodos);
     setFilterTodos(newTodos)
   };
 
   const onClearComplete = () => {
     const newTodos = todos.filter(todo => !todo.completed);
-    setTodos(newTodos);
+    saveTodos(newTodos);
     setFilterTodos(newTodos)
   };
 
