@@ -9,12 +9,12 @@ function Todos({ todoText, completed, onComplete, onDelete }) {
     dark:border-Very-Dark-Grayish-Blue2
     '>
 
-      <div className='flex items-center gap-3 p-1' onClick={onComplete}>
+      <div className='flex items-center gap-3 p-1 hover:cursor-pointer' onClick={onComplete}>
 
         <div className={`${completed ?
           'bg-gradient-to-r from-Check-Background1 to-Check-Background2' :
           'border-Light-Grayis-Blue dark:bg-Very-Dark-Desaturated-Blue border-2 dark:border-Very-Dark-Grayish-Blue2'} 
-                 w-5 h-5 flex justify-center items-center rounded-full`}
+           w-5 h-5 flex justify-center items-center rounded-full`}
         >
 
           {
@@ -25,8 +25,8 @@ function Todos({ todoText, completed, onComplete, onDelete }) {
 
         <p className={`${completed ?
           'text-Light-Grayis-Blue                                    dark:text-Very-Dark-Grayish-Blue2 line-through' :
-          'text-Very-Dark-Grayish-Blue1 font-semibold dark:text-Light-Grayish-Blue'
-          } text-sm`}
+          'text-Very-Dark-Grayish-Blue1 font-semibold dark:text-Light-Grayish-Blue dark:hover:text-Light-Grayish-Blue-hover'
+          } text-sm capitalize`}
 
         >
           {todoText}
@@ -34,7 +34,7 @@ function Todos({ todoText, completed, onComplete, onDelete }) {
 
       </div>
 
-      <img src={iconCross} alt="icon-cross" className='w-3' onClick={onDelete} />
+      <img src={iconCross} alt="icon-cross" className='w-3 hover:cursor-pointer' onClick={onDelete} />
     </section>
 
   );

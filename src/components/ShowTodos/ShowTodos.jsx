@@ -13,7 +13,7 @@ function ShowTodos({ allTodos, active, completed, activeButton, className }) {
       {
         buttons.map(button => (
           <button key={button.key} onClick={button.onclick}
-            className={activeButton === button.key ? 'text-Bright-Blue' : ''}>
+            className={activeButton === button.key ? 'text-Bright-Blue' : 'hover:text-black dark:hover:text-white'}>
             {button.name}
           </button>
         ))

@@ -18,7 +18,8 @@ function TodoCounter({ incompleteTodos, onClear, allTodos, active, completed, ac
       className={classDesktop} 
       activeButton={activeButton}/>
 
-      <button className='text-sm text-Dark-Grayish-Blue-light dark:text-Very-Dark-Grayish-Blue2' onClick={onClear}>
+      <button className='text-sm text-Dark-Grayish-Blue-light dark:text-Very-Dark-Grayish-Blue2 hover:text-Very-Dark-Desaturated-Blue dark:hover:text-Light-Grayish-Blue-hover' 
+      onClick={onClear}>
         Clear Completed
       </button>
     </div>

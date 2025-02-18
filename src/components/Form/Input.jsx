@@ -18,8 +18,10 @@ function Input(props) {
           name="add"
           value={todoInput}
           placeholder="Create a new todo..."
-          className="p-1 w-full bg-transparent placeholder:text-Dark-Grayish-Blue placeholder:text-sm outline-none font-josefin font-medium
+          className="p-1 w-full bg-transparent placeholder:text-Dark-Grayish-Blue placeholder:text-sm outline-none font-josefin font-semibold
+          text-purple-800
           placeholder:text-Dark-Grayish-Blue-light 
+          dark:text-purple-400
           dark:placeholder:text-Dark-Grayish-Blue-dark 
           " />
       </label>
