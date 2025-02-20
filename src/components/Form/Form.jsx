@@ -4,6 +4,7 @@ import { Todos } from "../Todos/Todos";
 import { TodoCounter } from "../TodoCounter/TodoCounter";
 import { ShowTodos } from "../ShowTodos/ShowTodos";
 import { Input } from "./Input";
+import { useLocalStorage } from "../../Hooks/useLocalStorage";
 
 const todosInfo = [
   // { text: "Work 1", completed: true, },
@@ -16,20 +17,9 @@ const todosInfo = [
 
 function Form() {
 
-  const localStorageTodos = localStorage.getItem('TODOS');
-
-  let parsedTodos;
-
-  if(!localStorageTodos){
-    localStorage.setItem('TODOS', JSON.stringify([]));
-    parsedTodos = [];
-  } else {
-    parsedTodos = JSON.parse(localStorageTodos)
-  }
-
   const [todoInput, setTodoInput] = useState('');
-  const [todos, setTodos] = useState(parsedTodos);
-  const [filterTodos, setFilterTodos] = useState(parsedTodos)
+  const [todos, saveTodos] = useLocalStorage('TODOS', []);
+  const [filterTodos, setFilterTodos] = useLocalStorage('TODOS', [])
   const [activeButtons, setActiveButtons] = useState("all")
 
   const addTodo = (text) => {
@@ -65,12 +55,6 @@ function Form() {
     setFilterTodos(todos.filter(todo => todo.completed))
     setActiveButtons("completed")
   };
-
-  const saveTodos = (newTodos) => {
-    localStorage.setItem('TODOS', JSON.stringify(newTodos));
-    setTodos(newTodos);
-    setFilterTodos(newTodos)
-  }
 
   const completeTodos = (text) => {
     const newTodos = [...todos];
