@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { Todos } from "../Todos/Todos";
 import { TodoCounter } from "../TodoCounter/TodoCounter";
 import { ShowTodos } from "../ShowTodos/ShowTodos";
 import { Input } from "./Input";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
+import { Reorder } from 'motion/react'
 
 const todosInfo = [
   // { text: "Work 1", completed: true, },
@@ -89,6 +90,8 @@ function Form() {
 
   const classMobile = "bg-Very-Light-Gray text-Dark-Grayish-Blue-light mt-10 rounded-md flex justify-center gap-10 p-2 dark:bg-Very-Dark-Desaturated-Blue dark:text-Very-Dark-Grayish-Blue2 font-bold md:hidden"
 
+  const container = useRef(null);
+
   return (
     <section className="mt-8">
       <form onSubmit={handleSubmit} className="mb-7">
@@ -107,16 +110,19 @@ function Form() {
           </p>
         }
 
-        {
-          filterTodos.map((todo, i) => (
-            <Todos key={i}
-              todoText={todo.text}
-              completed={todo.completed}
-              onComplete={() => completeTodos(todo.text)}
-              onDelete={() => deleteTodo(todo.text)} />
+        <Reorder.Group axis="y" values={filterTodos} onReorder={setFilterTodos} ref={container}>
+          {
+            filterTodos.map((todo, i) => (
+              <Todos key={i}
+                todo={todo}
+                todoText={todo.text}
+                completed={todo.completed}
+                onComplete={() => completeTodos(todo.text)}
+                onDelete={() => deleteTodo(todo.text)} container={container} />
 
-          ))
-        }
+            ))
+          }
+        </Reorder.Group>
 
         <TodoCounter
           incompleteTodos={incompleteTodos}
